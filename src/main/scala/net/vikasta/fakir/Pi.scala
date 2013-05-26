@@ -30,7 +30,7 @@ object Pi extends App {
     }
  
     def receive = {
-      case Work(start, nrOfElements) ⇒
+      case Work(start, nrOfElements) =>
         sender ! Result(calculatePiFor(start, nrOfElements)) // perform the work
     }
   }
@@ -46,9 +46,9 @@ object Pi extends App {
       Props[Worker].withRouter(RoundRobinRouter(nrOfWorkers)), name = "workerRouter")
  
     def receive = {
-      case Calculate ⇒
-        for (i ← 0 until nrOfMessages) workerRouter ! Work(i * nrOfElements, nrOfElements)
-      case Result(value) ⇒
+      case Calculate =>
+        for (i <- 0 until nrOfMessages) workerRouter ! Work(i * nrOfElements, nrOfElements)
+      case Result(value) =>
         pi += value
         nrOfResults += 1
         if (nrOfResults == nrOfMessages) {
@@ -63,7 +63,7 @@ object Pi extends App {
  
   class Listener extends Actor {
     def receive = {
-      case PiApproximation(pi, duration) ⇒
+      case PiApproximation(pi, duration) =>
         println("\n\tPi approximation: \t\t%s\n\tCalculation time: \t%s"
           .format(pi, duration))
         context.system.shutdown()
