@@ -1,0 +1,6 @@
+Install sbt
+Install sbteclipse
+Install Scala IDE for Eclipse
+Install egit for Eclipse
+
+Eclipse -> Import
